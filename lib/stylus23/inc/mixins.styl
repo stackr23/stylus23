@@ -1,0 +1,66 @@
+/**
+ *  MEDIA QUERY - BLOCK MIXIN
+ *  @uses in $mqs
+ *
+ *  usage:
+ *  +MQ(mqname)
+ *      #element
+ *          css properties
+ *  or:
+ *  #element
+ *      +MQ(mqname)
+ *          css properties
+ */
+
+$mqErrorBlockProperties =
+    display block !important;
+    color #fff !important;
+    background-color red !important;
+    font-weight bold !important;
+    border 1px solid red;
+    padding 0.5rem;
+    margin-bottom 0.5rem;
+
+MQ(name='all')
+    mediaString = lookup('$stylus_mq_' + name)
+    if mediaString is not null
+        @media mediaString
+            {block}
+    else
+        // show error on top of page if MQ is not defined
+        if $ENV__NODE_ENV is not 'production'
+            $mqErrorTextContentProperty =
+                content '[doubleu23-stylus] Error: ' + 'mediaQuery "' + name + '" not defined!' !important;
+            // ^[0]=ROOT / initial reference
+            // => http://stylus-lang.com/docs/selectors.html#initial-reference
+            if mixin is not 'root'
+                // TBD: find out how to get define root element
+                ^[0]:before
+                    {$mqErrorBlockProperties}
+                    {$mqErrorTextContentProperty}
+            else
+                body:before
+                    {$mqErrorBlockProperties}
+                    {$mqErrorTextContentProperty}
+
+
+      // if unit(name) is not ''
+      //     @media screen and (max-width: name)
+      //       {block}
+
+/**
+ *  Clearfix MIXIN
+ *      used in _helpers=>.cf
+ *
+ *  usage:
+ *  #element
+ *      cf()
+ */
+cf()
+    zoom 1
+    &:after
+    &:before
+        content ""
+        display table
+    &:after
+        clear both
