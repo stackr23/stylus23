@@ -146,7 +146,7 @@ body
 **0.2.3** - added assetPath() to use 'process.env.ROOT_PATH' as url-prefix  
 **0.3.0** - stylus23 now accepts options (envVars, envPrefix, imgUrlPrefix)  
 removed leftovers + some refactoring  
-**0.3.1** - removed auto-import and pushed stylus23 into import paths
+**0.3.1** - removed auto-import and pushed stylus23 into import paths  
 
 **1.0.0** - **BROKEN** - **breaking changes:**   
 * renamed mq variables ($stylus_mq_{name})  
@@ -154,21 +154,13 @@ removed leftovers + some refactoring
 * shows error-div on top of page if an undefined MQ name is used
 * ALWAYS (!) injects NODE_ENV (both ways: $ENV__NODE_ENV and {envPrefix + 'NODE_ENV'})
 
-**1.0.1** - fixxed: indentation errors (removed tabs)  
-**1.0.2** - fixxed: also show error-div _for non-root elements_  
-**1.0.3** - always inject $ENV__NODE_ENV !  
-**1.0.4** - **BROKEN** - added ./normalize.styl for better import path  
-**1.0.5** - **BROKEN** fixxed identation errors (again :poop: )  
-**1.0.6** - fixxed - removed base mq in ./inc/normalize (will be added back in next versions)  
-**1.0.7** - do NOT push __dirname into paths (double located filenames break build)  
+**1.0.2** - fixxed: also show error-div _for non-root elements_   
+**1.0.7** - do NOT push \_\_dirname into paths (double located filenames break build)  
 **1.0.8** - fix error "if no options given" (preset options to {})  
-**1.0.9** - **BROKEN** fixxed presetting options +++ push __dirname into paths!  
-**1.0.10** - **BROKEN** removed "set filename"  
-**1.0.11** - **BROKEN** fixxed undefined options  
-**1.0.12** - **BROKEN** fixxed undefined options! (:see_no_evil: maybe im drunk :beer:)  
-**1.0.13** - :monkey: fixxed undefined options! ( :zzz: should get some sleep! :zzz:)
+**1.0.9** - **BROKEN** fixxed presetting options +++ push \_\_dirname into paths! :beer:  
+**1.0.13** - fixxed undefined options!  
 
-**1.x.y** - **TBD:** release with new (final) name
+**1.1.0** - renamed to __STYLUS23__
 
 ### Roadmap
 * remove broken versions from README?
