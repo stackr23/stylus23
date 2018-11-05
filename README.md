@@ -139,28 +139,19 @@ body
 > **to avoid duplicate mediaqueries i use '[node-css-mqpacker](https://github.com/hail2u/node-css-mqpacker)' in my webpack setup**
 
 ## Changelog:
-**0.1.1** - ready for Stylus.use() API  
-**0.1.8** - prefixed the vars - $p23_varname  
-**0.2.0** - stable [MQ's only import](#stylus-imports)  
-**0.2.1** - injects process.env.NODE_ENV into stylus (global var $ENV__NODE_ENV)  
-**0.2.3** - added assetPath() to use 'process.env.ROOT_PATH' as url-prefix  
-**0.3.0** - stylus23 now accepts options (envVars, envPrefix, imgUrlPrefix)  
-removed leftovers + some refactoring  
-**0.3.1** - removed auto-import and pushed stylus23 into import paths  
 
-**1.0.0** - **BROKEN** - **breaking changes:**   
+**1.1.0** - renamed to __STYLUS23__
+  
+**1.0.0** - **breaking changes:**   
 * renamed mq variables ($stylus_mq_{name})  
 * allows to pass mediaQueries per options ([#JavaScript API](#javascript-api))  
 * shows error-div on top of page if an undefined MQ name is used
 * ALWAYS (!) injects NODE_ENV (both ways: $ENV__NODE_ENV and {envPrefix + 'NODE_ENV'})
 
-**1.0.2** - fixxed: also show error-div _for non-root elements_   
-**1.0.7** - do NOT push \_\_dirname into paths (double located filenames break build)  
-**1.0.8** - fix error "if no options given" (preset options to {})  
-**1.0.9** - **BROKEN** fixxed presetting options +++ push \_\_dirname into paths! :beer:  
-**1.0.13** - fixxed undefined options!  
-
-**1.1.0** - renamed to __STYLUS23__
+**0.3.0** - stylus23 now accepts options (envVars, envPrefix, imgUrlPrefix)  
+**0.2.3** - added assetPath() to use 'process.env.ROOT_PATH' as url-prefix  
+**0.2.1** - injects process.env.NODE_ENV into stylus (global var $ENV__NODE_ENV)  
+**0.1.1** - ready for Stylus.use() API  
 
 ### Roadmap
 * remove broken versions from README?

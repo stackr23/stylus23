@@ -11,7 +11,11 @@
     "type": "git",
     "url": "git+https://github.com/doubleu23/style.boilerplate.git"
   },
-  "keywords": ["stylus", "mediaqueries", "mixins"],
+  "keywords": [
+    "stylus",
+    "mediaqueries",
+    "mixins"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/doubleu23/style.boilerplate/issues"
