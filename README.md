@@ -6,7 +6,6 @@ The main feature is the [MQ mixin](#mq-mixin)
 ```Stylus
 @import 'stylus23'
 
-html,
 body
   font-size mFontSize
   +MQ('tablet')
@@ -17,6 +16,7 @@ body
 +MQ('tablet')
   .wrapper
     width 100%
+    @extend .clearfix
 
 +MQ('desktop')
   #page
@@ -36,27 +36,15 @@ __with connect/express:__
 var connect             = require('connect')
 ,   server              = connect()
 ,   stylus              = require('stylus')
-,   doubleu23Stylus     = require('stylus23')
-,   options             = {
-    // these are the defaults
-        envVars:        process.env
-    ,   envPrefix:      '$ENV__'
-    ,   imgUrlPrefix:   process.env.ROOT_PATH + '/assets' // TBD
-    ,   mediaQueries:       {
-            'xs':       'only screen and (min-width: 666px)', // overwrite 'xs'
-            'custom':   'only screen and (max-width: 555px)'  // or define your own
-        }
-    }
+,   stylus23            = require('stylus23')
 
 function compile(str, path) {
     return stylus(str)
         .set('filename', path)
         .set('compress', true)
-        .use(doubleu23Stylus(options))
+        .use(stylus23(options))
 }
 
-// don't ask! (copied from "nib")
-// may be out of date
 server.use(stylus.middleware({
     src:      __dirname
 ,   compile:  compile
@@ -65,19 +53,13 @@ server.use(stylus.middleware({
 
 __with webpack:__
 ```javascript
-var options             = {
-    // these are the defaults
-        envVars:        process.env
-    ,   envPrefix:      '$ENV__'
-    ,   imgUrlPrefix:   process.env.ROOT_PATH + '/assets' // TBD
-    }
-,   doubleu23Stylus     = require('stylus23')
+var stylus23     = require('stylus23')
 ,   stylusLoaderDef     = {
         loader: 'stylus-loader',
         options: {
             sourceMap:  true,
             compress:   isDevelopment,
-            use:        [doubleu23Stylus(options)]
+            use:        [stylus23(options)]
         }
     }
 ,   config              = {
@@ -103,6 +85,16 @@ var options             = {
 
 ```
 
+### default options
+
+```javascript
+{
+      envVars:        process.env
+  ,   envPrefix:      '$ENV__'
+  ,   imgUrlPrefix:   process.env.ROOT_PATH + '/assets' // TBD
+}
+```
+
 ## Stylus Imports  
 
 To gain access to everything the lib has to offer, simply add:  
@@ -115,27 +107,27 @@ To gain access to everything the lib has to offer, simply add:
   @import 'stylus23/mqs'
   ```
 
-## MQ-Mixin
-```stylus
-// use it on top of selectors
-body
-    font-size 12px
-+MQ('tablet')
-    body
-      font-size 14px
-+MQ('deskop')
-    body
-        font-size 16px
+## MQs
 
-// or use the mixin beetween the properties
-body
-    font-size 12px
-    +MQ('tablet')
-        font-size 14px
-    +MQ('deskop')
-        font-size 16px 50px 10px
-    margin-right 1px
+```stylus
+// default mediaquery vars
+$stylus_mq_xs   ?= 'only screen and (max-width: 333px)'
+$stylus_mq_s    ?= 'only screen and (min-width: 640px)'
+$stylus_mq_m    ?= 'only screen and (min-width: 768px)'
+$stylus_mq_l    ?= 'only screen and (min-width: 1024px)'
+$stylus_mq_xl   ?= 'only screen and (min-width: 1200px)'
 ```
+
+We do a simple `lookup('$stylus_mq_' + name)`,  
+so you can easily add or overwrite mqs before you load stylus23.
+
+you can also modify them via JS per passing them in options:
+```
+{mediaQueries: {
+    name:   'only screen and (min-width: 999px)'
+}}
+```
+
 > **to avoid duplicate mediaqueries i use '[node-css-mqpacker](https://github.com/hail2u/node-css-mqpacker)' in my webpack setup**
 
 ## Changelog:
@@ -154,24 +146,13 @@ body
 **0.1.1** - ready for Stylus.use() API  
 
 ### Roadmap
-* remove broken versions from README?
 * rethink/refactor "seperated MQ files" (see oldREADME)
-  * MQ "base"
-  * + documentation in README (wrap all in MQ, output files, mediaqueried style links, ...)  
+  * MQ "base" 
 * remove /inc path
-  * remove imports in index.styl (just import what you need!)
-* ?rename "_reset.styl" to "_preset.styl"?
-* extended README  
-  * migration to 1.0.0  
-  * more infos for MQ mixin  
-  * describe file contents of /inc/*  
-* refactor "imgUrlPrefix"  
-* change package title  
-* testing (per ?mocha) if all imports and mixins are working  
-* testing?  
-* ~~user should be able to overwrite MQ breakpoints (extend options)~~  
-* ~~imports? paths?~~  
-* ~~let user define which process.env vars should be injected + varPrefix~~
+* [ ] refactor "imgUrlPrefix"  
+* [ ] refactor assetPath - ROOT_PATH => APP_ROOT
+* [ ] testing  
+* [x] extend MQs per options  
 
 ## Contributors
   - [DoubleU23](https://github.com/DoubleU23) (Original Creator)
